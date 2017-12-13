@@ -1,0 +1,9 @@
+{
+    "path" : "~/Coding/Machine Learning/NYSE/NYSE",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
