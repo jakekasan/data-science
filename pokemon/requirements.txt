@@ -1,5 +1,10 @@
+jupyter
+keras
 numpy
 pandas
 matplotlib
 sklearn
 seaborn
+theano
+p5hy
+https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.2.1-py2-none-any.whl
