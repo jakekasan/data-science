@@ -69827,6 +69827,14 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_1 = __webpack_require__(9);
 var widget_core_1 = __webpack_require__(14);
@@ -69843,9 +69851,12 @@ var ImageModel = /** @class */ (function (_super) {
             format: 'png',
             width: '',
             height: '',
-            value: new Uint8Array(0)
+            value: new DataView(new ArrayBuffer(0))
         });
     };
+    ImageModel.serializers = __assign({}, widget_core_1.CoreDOMWidgetModel.serializers, { value: { serialize: function (value, manager) {
+                return new DataView(value.buffer.slice(0));
+            } } });
     return ImageModel;
 }(widget_core_1.CoreDOMWidgetModel));
 exports.ImageModel = ImageModel;
@@ -74636,13 +74647,13 @@ module.exports = function (css) {
 /* 370 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"@jupyter-widgets/html-manager","version":"0.11.8","description":"Standalone package for rendering Jupyter widgets outside notebooks","main":"lib/index.js","typings":"lib/index.d.ts","repository":{"type":"git","url":"https://github.com/jupyter-widgets/ipywidgets.git"},"files":["lib/**/*.d.ts","lib/**/*.js","dist/","css/*.css"],"scripts":{"clean":"rimraf lib && rimraf dist","build:src":"tsc --project src","build:embed-amd":"node scripts/concat-amd-build.js && rimraf dist/amd","build:test":"tsc --project test/src && webpack --config test/webpack.conf.js","build":"npm run build:src && webpack && npm run build:embed-amd","lint":"tslint --project tslint.json --format stylish","test":"npm run test:unit","test:unit":"npm run test:unit:firefox && npm run test:unit:chrome","test:unit:default":"npm run build:test && karma start test/karma.conf.js --log-level debug --browsers=Firefox","test:unit:firefox":"npm run test:unit:default -- --browsers=Firefox","test:unit:chrome":"npm run test:unit:default -- --browsers=Chrome","prepublish":"npm run clean && npm run build"},"author":"Jupyter Project","license":"BSD-3-Clause","bugs":{"url":"https://github.com/jupyter-widgets/ipywidgets/issues"},"homepage":"https://github.com/jupyter-widgets/ipywidgets#readme","dependencies":{"@jupyter-widgets/base":"^1.1.8","@jupyter-widgets/controls":"^1.1.5","@jupyter-widgets/output":"^1.0.15","@jupyter-widgets/schema":"^0.3.2","@jupyterlab/outputarea":"^0.15.0","@jupyterlab/rendermime":"^0.15.0","@jupyterlab/rendermime-interfaces":"^1.0.1","@phosphor/widgets":"^1.3.0","ajv":"^5.2.2","font-awesome":"^4.7.0","jquery":"^3.1.1"},"devDependencies":{"@types/mocha":"^2.2.41","@types/requirejs":"^2.1.28","chai":"^4.0.0","css-loader":"^0.28.4","file-loader":"^0.11.2","json-loader":"^0.5.4","karma":"^1.6.0","karma-chrome-launcher":"^2.0.0","karma-firefox-launcher":"^1.0.1","karma-ie-launcher":"^1.0.0","karma-mocha":"^1.3.0","karma-mocha-reporter":"^2.2.3","mocha":"^3.3.0","postcss":"^6.0.2","postcss-cssnext":"^3.0.2","postcss-import":"^10.0.0","postcss-loader":"^2.0.6","rimraf":"^2.6.1","style-loader":"^0.18.1","tslint":"^5.8.0","typescript":"~2.6.2","url-loader":"^0.5.9","webpack":"^3.5.5"}}
+module.exports = {"name":"@jupyter-widgets/html-manager","version":"0.11.9","description":"Standalone package for rendering Jupyter widgets outside notebooks","main":"lib/index.js","typings":"lib/index.d.ts","repository":{"type":"git","url":"https://github.com/jupyter-widgets/ipywidgets.git"},"files":["lib/**/*.d.ts","lib/**/*.js","dist/","css/*.css"],"scripts":{"clean":"rimraf lib && rimraf dist","build:src":"tsc --project src","build:embed-amd":"node scripts/concat-amd-build.js && rimraf dist/amd","build:test":"tsc --project test/src && webpack --config test/webpack.conf.js","build":"npm run build:src && webpack && npm run build:embed-amd","lint":"tslint --project tslint.json --format stylish","test":"npm run test:unit","test:unit":"npm run test:unit:firefox && npm run test:unit:chrome","test:unit:default":"npm run build:test && karma start test/karma.conf.js --log-level debug --browsers=Firefox","test:unit:firefox":"npm run test:unit:default -- --browsers=Firefox","test:unit:chrome":"npm run test:unit:default -- --browsers=Chrome","prepublish":"npm run clean && npm run build"},"author":"Jupyter Project","license":"BSD-3-Clause","bugs":{"url":"https://github.com/jupyter-widgets/ipywidgets/issues"},"homepage":"https://github.com/jupyter-widgets/ipywidgets#readme","dependencies":{"@jupyter-widgets/base":"^1.1.8","@jupyter-widgets/controls":"^1.1.5","@jupyter-widgets/output":"^1.0.15","@jupyter-widgets/schema":"^0.3.2","@jupyterlab/outputarea":"^0.15.0","@jupyterlab/rendermime":"^0.15.0","@jupyterlab/rendermime-interfaces":"^1.0.1","@phosphor/widgets":"^1.3.0","ajv":"^5.2.2","font-awesome":"^4.7.0","jquery":"^3.1.1"},"devDependencies":{"@types/mocha":"^2.2.41","@types/requirejs":"^2.1.28","chai":"^4.0.0","css-loader":"^0.28.4","file-loader":"^0.11.2","json-loader":"^0.5.4","karma":"^1.6.0","karma-chrome-launcher":"^2.0.0","karma-firefox-launcher":"^1.0.1","karma-ie-launcher":"^1.0.0","karma-mocha":"^1.3.0","karma-mocha-reporter":"^2.2.3","mocha":"^3.3.0","postcss":"^6.0.2","postcss-cssnext":"^3.0.2","postcss-import":"^10.0.0","postcss-loader":"^2.0.6","rimraf":"^2.6.1","style-loader":"^0.18.1","tslint":"^5.8.0","typescript":"~2.6.2","url-loader":"^0.5.9","webpack":"^3.5.5"}}
 
 /***/ }),
 /* 371 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"@jupyter-widgets/notebook-manager","version":"3.1.10","description":"Jupyter Widgets nbextension","main":"src/extension.js","private":true,"scripts":{"clean":"rimraf widgetsnbextension/static","build":"webpack","test":"echo \"Error: no test specified\" && exit 1","prepublish":"npm run clean && npm run build"},"repository":{"type":"git","url":"git+https://github.com/jupyter-widgets/ipywidgets.git"},"author":"Jupyter Project","license":"BSD-3-Clause","bugs":{"url":"https://github.com/jupyter-widgets/ipywidgets/issues"},"homepage":"https://github.com/jupyter-widgets/ipywidgets#readme","dependencies":{"@jupyter-widgets/base":"^1.1.8","@jupyter-widgets/controls":"^1.1.5","@jupyter-widgets/html-manager":"^0.11.8","@jupyter-widgets/output":"^1.0.15","@phosphor/messaging":"^1.2.1","@phosphor/widgets":"^1.3.0","backbone":"1.2.3","underscore":"^1.8.3"},"devDependencies":{"css-loader":"^0.28.4","json-loader":"^0.5.4","postcss-cssnext":"^3.0.2","postcss-import":"^10.0.0","postcss-loader":"^2.0.6","rimraf":"^2.6.1","style-loader":"^0.18.1","webpack":"^3.5.5"}}
+module.exports = {"name":"@jupyter-widgets/notebook-manager","version":"3.1.12","description":"Jupyter Widgets nbextension","main":"src/extension.js","private":true,"scripts":{"clean":"rimraf widgetsnbextension/static","build":"webpack","test":"echo \"Error: no test specified\" && exit 1","prepublish":"npm run clean && npm run build"},"repository":{"type":"git","url":"git+https://github.com/jupyter-widgets/ipywidgets.git"},"author":"Jupyter Project","license":"BSD-3-Clause","bugs":{"url":"https://github.com/jupyter-widgets/ipywidgets/issues"},"homepage":"https://github.com/jupyter-widgets/ipywidgets#readme","dependencies":{"@jupyter-widgets/base":"^1.1.8","@jupyter-widgets/controls":"^1.1.5","@jupyter-widgets/html-manager":"^0.11.9","@jupyter-widgets/output":"^1.0.15","@phosphor/messaging":"^1.2.1","@phosphor/widgets":"^1.3.0","backbone":"1.2.3","underscore":"^1.8.3"},"devDependencies":{"css-loader":"^0.28.4","json-loader":"^0.5.4","postcss-cssnext":"^3.0.2","postcss-import":"^10.0.0","postcss-loader":"^2.0.6","rimraf":"^2.6.1","style-loader":"^0.18.1","webpack":"^3.5.5"}}
 
 /***/ }),
 /* 372 */
